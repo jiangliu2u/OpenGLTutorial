@@ -90,7 +90,8 @@ int main(void)
 
 		while (!glfwWindowShouldClose(window))
 		{
-			GLCall(glClearColor(0.f,0.f,0.f,1.f));
+			GLCall(glClearColor(0.f,0.f,0.f,0.f));
+			GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
