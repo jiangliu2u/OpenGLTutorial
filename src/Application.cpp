@@ -18,6 +18,8 @@
 #include <imgui_impl_glfw.h>
 #include "test/TestClearColor.h"
 #include "test/TestTexture2D.h"
+#include "test/TestBox.h"
+#include "test/TestLight.h"
 void framebuffer_size_callback(GLFWwindow* w, int width, int height);
 
 
@@ -38,7 +40,7 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(800, 450, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(800, 800, "Hello World", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -52,11 +54,7 @@ int main(void)
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize OpenGL context" << std::endl;
-		return -1;
-	}
+
 	/* Make the window's context current */
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -83,7 +81,8 @@ int main(void)
 		currentTest = testMenu;
 
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color");
-		testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
+		testMenu->RegisterTest<test::Testbox>("Testbox");
+		testMenu->RegisterTest<test::TestLight>("TestLight");
 
 		test::TestClearColor testClearColor;
 
