@@ -22,7 +22,7 @@ namespace test {
 		virtual void OnImGuiRender() override;
 		virtual void OnUpdate(float deltaTime) override;
 	private:
-		glm::vec3 m_TranslationA, m_TranslationB, m_lightColor;
+		glm::vec3 m_TranslationA, m_TranslationB, m_lightColor, m_lightPos, m_Rotation;
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VAO;

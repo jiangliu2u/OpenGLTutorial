@@ -7,6 +7,8 @@ namespace test {
 	TestLight::TestLight() :m_TranslationA(-1.0, -1.0, -0.30),
 		m_TranslationB(100.f, 100.f, 0.f),
 		m_lightColor(1.f, 1.f, 1.f),
+		m_lightPos(0.f, 0.f, 2.f),
+		m_Rotation(-1.f, -1.f, -1.f),
 		m_Proj(glm::perspective(glm::radians(45.0f), 1.f, 0.1f, 100.0f)),
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f)))
 	{
@@ -85,13 +87,13 @@ namespace test {
 		Renderer renderer;
 		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 		glm::mat4 model = glm::translate(glm::mat4(1), glm::vec3(0.f, 0.0f, 0.f));
-		model = glm::rotate(model, 11 * glm::radians(60.0f), glm::vec3(std::sin(glfwGetTime()), std::cos(glfwGetTime()), std::cos(glfwGetTime())));
+		model = glm::rotate(model, 11 * glm::radians(60.0f), m_Rotation);
 		m_Shader->Bind();
 		m_Shader->SetUniformMat4f("projection", m_Proj);
 		m_Shader->SetUniformMat4f("view", m_View);
 		m_Shader->SetUniformMat4f("model", model);
-		m_Shader->SetUniform3f("lightPos", 1.2f, 1.0f, 2.0f);
-		m_Shader->SetUniform3f("lightColor", 1.f, 1.f, 1.f);
+		m_Shader->SetUniform3f("lightPos",m_lightPos[0], m_lightPos[1], m_lightPos[2]);
+		m_Shader->SetUniform3f("lightColor", m_lightColor[0], m_lightColor[1], m_lightColor[2]);
 
 		renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
 	}
@@ -99,6 +101,9 @@ namespace test {
 	void TestLight::OnImGuiRender()
 	{
 		ImGui::SliderFloat3("TranslationA", &m_TranslationA.x, -1.f, 1.f);
+		ImGui::SliderFloat3("Light Color", &m_lightColor.x, -1.f, 1.f);
+		ImGui::SliderFloat3("Light Position", &m_lightPos.x, -2.f, 2.f);
+		ImGui::SliderFloat3("Rotation ", &m_Rotation.x, -1.f, 1.f);
 	}
 
 	void TestLight::OnUpdate(float deltaTime)
